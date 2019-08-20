@@ -1,8 +1,35 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.GridPane?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Background?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.HBox?>
+<HBox fx:controller="sample.Controller"
+      xmlns:fx="http://javafx.com/fxml" alignment="bottom_right"
+style="-fx-border-colors: blue; -fx-border-width: 3; -fx-border-style: dashed">      <!-- using css in  java -->
+
+    <padding>
+        <Insets bottom="10" right="10"/>
+     </padding>
+    <Button text ="Okay" prefWidth="90"/>
+    <Button text ="health" prefWidth="90"/>
+    <Button text ="help" prefWidth="90"/>
+
+
+ <!--   <padding>
+    <Insets top = "10"/>
+    </padding>
+    <!- grid layout -->
+    <!--columnConstraints>
+        <ColumnConstraints percentWidth="58.9"/>
+        <ColumnConstraints percentWidth="50.789"/>
+    </columnConstraints>
+    <Button text="Button one" GridPane.columnIndex="0" GridPane.rowIndex="0"
+    GridPane.columnSpan="2"
+    GridPane.halignment="RIGHT"/>    <!- used to span more than one column
+    <Button text = "Button 2" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+</GridPane>-->
+</HBox>
