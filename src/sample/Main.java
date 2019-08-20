@@ -1,46 +1,56 @@
 package sample;
-import java.lang.management.GarbageCollectorMXBean;
-import java.util.Scanner;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.effect.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import static javafx.scene.paint.Color.*;
+
 public class Main extends Application {
-   static String name;
-   static Scanner in = new Scanner(System.in);
+
+    Bloom bloom = new Bloom();
+    Reflection reflection = new Reflection();
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-  /*      GridPane root = new GridPane();
-        root.setAlignment(Pos.CENTER);
-        root.setVgap(10);
-        root.setHgap(10);
-
-        Label greeting = new Label("welcome to Guleri Enterprise");
-        greeting.setTextFill(Color.GREEN);
-        greeting.setFont(Font.font("Times New Roman", FontWeight.BOLD,50));
-        root.getChildren().add(greeting);
-        */
-
-        primaryStage.setTitle(name);
+        Image img = new Image("https://www.javatpoint.com/javafx/images/javafx-imageinput-effect.png");
+        Text text = new Text();
+        text.setText(" Welcome to Guleri Enterprises");
+        text.setFont(Font.font("Times new Roman bold",FontWeight.THIN, FontPosture.ITALIC,30));
+        text.setX(50);
+        text.setY(200);
+        text.setFill(DARKSALMON);
+        text.setEffect(bloom);
+        text.setEffect(reflection);
 
 
-        primaryStage.setScene(new Scene(root, 500, 275));
+        ImageInput imginput = new ImageInput();
+        Rectangle rect = new Rectangle();
+        imginput.setSource(img);
+        imginput.setX(50);
+        imginput.setY(100);
+        Group root = new Group();
+        rect.setEffect(imginput);
+        root.getChildren().add(rect);
+
+        root.getChildren().add(text);
+        Scene scene = new Scene(root,1030,1500, MEDIUMAQUAMARINE);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("ImageInput Example");
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        System.out.println("enter application name: ");
-        name = in.next();
         launch(args);
     }
 }
