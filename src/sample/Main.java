@@ -84,13 +84,37 @@ rectangle.setArcWidth(35);
       Scene scene = new Scene(group,1400,1200,DARKGRAY);
 
       Label label2 = new Label("This is the second scene");
-     Button end = new Button("Go to scene 1");
+      Button end = new Button("Go to scene 1");
 
+        
+       rectangle = new Rectangle(25,25,1300,650);
+      rectangle.setFill(DARKTURQUOISE);
+      rectangle.setArcHeight(35);  
+      rectangle.setArcWidth(35);
+        
+        Rectangle rect1 = new Rectangle(22,22,400,500);
+         rect1.setFill(DARKTURQUOISE);
+      rect1.setArcHeight(35);  
+      rect1.setArcWidth(35);
+          Rectangle rect2 = new Rectangle(22,22,400,500);
+         rect2.setFill(DARKTURQUOISE);
+      rect2.setArcHeight(35);  
+      rect2.setArcWidth(35);
+             Rectangle rect3 = new Rectangle(22,22,400,500);
+         rect3.setFill(DARKTURQUOISE);
+      rect3.setArcHeight(35);  
+      rect3.setArcWidth(35);
+             Rectangle rect4 = new Rectangle(22,22,400,500);
+         rect4.setFill(DARKTURQUOISE);
+      rect4.setArcHeight(35);  
+      rect4.setArcWidth(35);
+           
       scaleTransition.setNode(sphere2);
       scaleTransition.play();
+        
       end.setOnAction(e -> primaryStage.setScene(scene1));
       VBox layout2 = new VBox(20);
-      layout2.getChildren().addAll(label2, end,sphere2);
+      layout2.getChildren().addAll(label2, end,sphere2,rect1,rect2,rect3,rect4);
       scene2 = new Scene(layout2, 1300, 1250);
       primaryStage.setScene(scene);
       primaryStage.setTitle("School");
