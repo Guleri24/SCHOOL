@@ -1,4 +1,6 @@
 # SCHOOL-Graphics Projects 2019
 School-- 
 Six Curel Hours Of Our Life
-   this is a javaFx application for my graphics project
+My first javaFX application for my graphics projects.
+This application consists games, stimulations, and image stimulation.
+
