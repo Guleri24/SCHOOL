@@ -1,0 +1,119 @@
+package sample;
+
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.effect.Effect;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import sun.misc.GC;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class AsteriodsApp extends Application {
+    private Pane root;
+    private List< GameObject > bullets = new ArrayList<>();
+    private List< GameObject > enemies = new ArrayList<>();
+    private GameObject players;
+
+    private Parent createContent() {
+        root = new Pane();
+        Rectangle  rectangle = new Rectangle(23,23,1300,1300);
+        rectangle.setFill(Color.BLUEVIOLET);
+        Rectangle  rectangle1 = new Rectangle(1500,1500,Color.BLACK);
+
+        root.getChildren().addAll(rectangle1,rectangle);
+        root.setPrefSize(1300, 1300);
+        players = new Player();
+       players.setVelocity(new Point2D(1, 0));
+        addGameObject(players,300,300);
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                onUpdate();
+            }
+        };
+        timer.start();
+        return root;
+    }
+    public void addGameObject(GameObject object,double x, double y){
+      object.getView().setTranslateX(x);
+      object.getView().setTranslateY(y);
+        root.getChildren().add(object.getView());
+    }
+    private void addBullet(GameObject bullet, double x, double y){
+     bullets.add(bullet);
+     addGameObject(bullet,x,y);
+    }
+    private void addEnemy(GameObject enemy, double x, double y){
+        enemies.add(enemy);
+        addGameObject(enemy,x,y);
+    }
+    private void onUpdate() {
+        for (GameObject bullets : bullets) {
+            for (GameObject enemy : enemies) {
+                if (bullets.isColliding(enemy)) {
+                    bullets.setAlive(false);
+                    enemy.setAlive(false);
+                    root.getChildren().removeAll(bullets.getView(),enemy.getView());
+                }
+            }
+        }
+        bullets.removeIf(GameObject::isDead);
+        enemies.removeIf(GameObject::isDead);
+        bullets.forEach(GameObject::update);
+        enemies.forEach(GameObject::update);
+        players.update();
+        if(Math.random()<0.02){
+            addEnemy(new Enemies(),Math.random()*root.getPrefWidth(),Math.random()*root.getPrefHeight());
+        }
+    }
+
+    public static class Player extends GameObject {
+        Player() {
+            super(new Rectangle(40, 20, Color.RED));
+        }
+    }
+
+    public static class Enemies extends GameObject {
+        Enemies() {
+            super(new Rectangle(40, 20, Color.BLUE));
+        }
+    }
+
+    public static class Bullets extends GameObject {
+        Bullets() {
+            super(new Circle(20,20,20,Color.GOLD));
+        }
+    }
+
+    public void start(Stage stage) throws Exception {
+        stage.setScene(new Scene(createContent()));
+        stage.getScene().setOnKeyPressed(e->{
+            if(e.getCode()== KeyCode.LEFT){
+          players.rotateLeft();
+            }
+            else if(e.getCode() == KeyCode.RIGHT){
+                players.rotateRight();
+            }
+            else if(e.getCode() == KeyCode.SPACE){
+   Bullets bullet = new Bullets();
+   bullet.setVelocity(players.getVelocity().normalize().multiply(1));
+   addBullet(bullet,players.getView().getTranslateX(), players.getView().getTranslateY());
+            }
+        });
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
