@@ -21,6 +21,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.io.FileInputStream;
+
 
 import java.util.Scanner;
 
@@ -129,9 +131,24 @@ class Scene2 {
         rect4.setFill(BLUEVIOLET);
         rect4.setArcHeight(35);
         rect4.setArcWidth(35);
+        
+         FileInputStream input = new FileInputStream("/home/Guleri/Downloads/asteriod.jpeg");
+
+        Image image = new Image(input);
+        ImageView img = new ImageView(image);
+        img.setX(200);
+        img.setY(205);
+        img.setFitHeight(210);
+        img.setFitWidth(200);
+
+        Button button  = new Button();
+        button.setGraphic(img);
+        button.setLayoutX(125);
+        button.setLayoutY(220);
+        button.setWrapText(true);
 
         Group group = new Group();
-        group.getChildren().addAll(BackRect, MainRect,rect1,rect2,rect3,rect4);
+        group.getChildren().addAll(BackRect, MainRect,rect1,rect2,rect3,rect4,button);
         scene1 = new Scene(group, 1400, 1200, DARKGRAY);
         primaryStage.setScene(scene1);
         primaryStage.setTitle("School");
